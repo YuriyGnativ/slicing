@@ -1,0 +1,36 @@
+$breakpoints: (
+  "es": (
+    max-width: 375px,
+  ),
+  "sm": (
+    max-width: 767px,
+  ),
+  "md": (
+    max-width: 992px,
+  ),
+  "lg": (
+    max-width: 1200px,
+  ),
+) !default;
+
+@mixin respond($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media #{inspect(map-get($breakpoints, $breakpoint))} {
+      @content;
+    }
+  } @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Available breakpoints are: #{map-keys($breakpoints)}.";
+  }
+}
+
+@mixin font-face($font-family, $url, $weight) {
+  @font-face {
+    font-family: "#{$font-family}";
+    src: url("../fonts/#{$url}.woff2") format("woff2"),
+      url("../#{$url}.woff") format("woff");
+    font-weight: #{$weight};
+    font-display: swap;
+    font-style: normal;
+  }
+}
